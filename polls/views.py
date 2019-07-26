@@ -36,3 +36,7 @@ def EditarContatos (request,id):
         return redirect('polls:VerContatos')
     else:
         return render (request,'editarContato.html',locals())
+def deletarContatos (request,id):
+    contatos = Contato.objects.get(pk=id)
+    contatos.delete()
+    return redirect('polls:VerContatos')

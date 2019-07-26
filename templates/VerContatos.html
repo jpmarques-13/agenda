@@ -18,7 +18,7 @@
     <td>{{contato.Email}}</td>
     <td>{{contato.Celular}}</td>
     <td> <a href="{%url 'polls:editar' contato.id %}"> editar </a> </td>
-
+    <td> <a href="{%url 'polls:deletar' contato.id %}"> deletar </a></td>
       </tr>
 {% endfor %}
 
