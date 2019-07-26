@@ -10,12 +10,15 @@
         <td>Nome</td>
         <td>Email</td>
         <td>Celular</td>
+        <td>Acoes</td>
       </tr>
 {% for contato in contatos %}
       <tr>
     <td>{{contato.Nome}}</td>
     <td>{{contato.Email}}</td>
     <td>{{contato.Celular}}</td>
+    <td> <a href="{%url 'polls:editar' contato.id %}"> editar </a> </td>
+
       </tr>
 {% endfor %}
 
