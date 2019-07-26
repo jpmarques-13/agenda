@@ -8,5 +8,4 @@ from django.db import models
 class Contato(models.Model):
     Nome = models.CharField(max_length=250)
     Email = models.EmailField()
-    Celular =  models.CharField(max_length=11)
-    
+    Celular =  models.CharField(max_length=14)
