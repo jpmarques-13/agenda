@@ -1,14 +1,27 @@
 {%extends 'baseLayout.html'%}
 {%block title%}Lista de Contatos{%endblock%}
+
+{%block side-bar%}
+    <div class="side-bar">
+      <div class="header">
+          <h1>Meus contatos</h1>
+      </div>
+    </div>
+{%endblock%}
+
 {%block content%}
+    <div class="container-filtro">
+              <a href="#" class='cta'>FILTRO</a>
+              <a href="#" class='cadastro'>CADASTRAR CONTATO</a>
+    </div>
     <table border='1'>
-      <tr>
-        <td>Nome</td>
-        <td>Email</td>
-        <td>Celular</td>
-        <td>Acoes</td>
-      </tr>
-{% for contato in contatos %}
+        <tr>
+          <td>Nome</td>
+          <td>Email</td>
+          <td>Celular</td>
+          <td>Acoes</td>
+        </tr>
+            {% for contato in contatos %}
       <tr>
           <td>{{contato.Nome|truncatewords:5}}</td>
           <td>{{contato.Email}}</td>
@@ -16,8 +29,8 @@
           <td> <a href="{%url 'polls:editar' contato.id %}"> editar </a> </td>
           <td> <a href="{%url 'polls:deletar' contato.id %}"> deletar </a></td>
       </tr>
-{% endfor %}
-</table>
+            {% endfor %}
+    </table>
 {%endblock%}
   </body>
 </html>
