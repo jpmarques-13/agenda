@@ -1,20 +1,16 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>criar novo contato</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  </head>
-  <body>
+{%extends 'baseLayout.html'%}
+{%block title%}Criar Contato{%endblock%}
+    {%block script-link%}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+    {%endblock%}
+{%block content%}
     <form class="form-inline" action="/polls/CriarContato" method="post">
       {% csrf_token %}
       {{form}}
       <input id="contato" type="submit" value="CriarContato">
     </form>
-  </body>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
-  <script type="text/javascript">
+    {%endblock%}
+{%block script%}
     $("#id_Celular").mask("(00)00000-0000");
-
-</script>
-</html>
+{%endblock%}

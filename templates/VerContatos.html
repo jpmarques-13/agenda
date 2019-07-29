@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Lista de contatos</title>
-  </head>
-  <body>
+{%extends 'baseLayout.html'%}
+{%block title%}Lista de Contatos{%endblock%}
+{%block content%}
     <table border='1'>
       <tr>
         <td>Nome</td>
@@ -14,14 +10,14 @@
       </tr>
 {% for contato in contatos %}
       <tr>
-    <td>{{contato.Nome}}</td>
-    <td>{{contato.Email}}</td>
-    <td>{{contato.Celular}}</td>
-    <td> <a href="{%url 'polls:editar' contato.id %}"> editar </a> </td>
-    <td> <a href="{%url 'polls:deletar' contato.id %}"> deletar </a></td>
+          <td>{{contato.Nome|truncatewords:5}}</td>
+          <td>{{contato.Email}}</td>
+          <td>{{contato.Celular}}</td>
+          <td> <a href="{%url 'polls:editar' contato.id %}"> editar </a> </td>
+          <td> <a href="{%url 'polls:deletar' contato.id %}"> deletar </a></td>
       </tr>
 {% endfor %}
-
 </table>
+{%endblock%}
   </body>
 </html>

@@ -15,6 +15,7 @@ def CriarContato (request):
         form = ContatoForm(request.POST)
         if form.is_valid():
             form.save()
+        redirect('polls:VerContatos')
     else:
         form = ContatoForm()
     return render (request,'novocontato.html',{'form':form})
@@ -23,14 +24,14 @@ def CriarContato (request):
 
 def VerContatos (request):
     contatos = Contato.objects.all()
-    return render (request,'VerContatos.html',{'contatos':contatos})
+    return render (request,'VerContatos.html',locals())
 
 
 def EditarContatos (request,id):
     contatos = Contato.objects.get(pk=id)
-    form=ContatoForm(instance=contatos)
+    form=ContatoForm(request.POST or None,instance=contatos)
     if request.method == 'POST':
-        form = ContatoForm(request.POST, instance=contatos )
+        #form = ContatoForm(request.POST, instance=contatos )
         if form.is_valid():
             form.save()
         return redirect('polls:VerContatos')
