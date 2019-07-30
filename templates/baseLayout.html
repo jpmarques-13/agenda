@@ -1,17 +1,27 @@
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    {% load static %}
+
+      {% load static %}
     <meta charset="utf-8">
     <link rel="stylesheet" href="{% static "style.css" %}">
     <title>{% block title%} {%endblock%}</title>
     {%block script-link%}{%endblock%}
   </head>
   <body>
+
     <header>
-        <div class="side-bar">
-          {%block side-bar%}{%endblock%}
-        </div>
+
+          {%block side-bar%}
+
+          {%endblock%}
+
     </header>
       <div class="content">
         {%block content%}{%endblock%}

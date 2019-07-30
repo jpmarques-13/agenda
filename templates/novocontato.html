@@ -1,16 +1,38 @@
 {%extends 'baseLayout.html'%}
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
 {%block title%}Criar Contato{%endblock%}
     {%block script-link%}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
     {%endblock%}
+{%block side-bar%}
+<div class="side-bar">
+  <span  class='plus-icon'>{% bootstrap_icon "plus" %}</span>
+  <p>Novo Contato</p>
+          </div>
+{%endblock%}
 
 {%block content%}
-    <form class="form-inline" action="/polls/CriarContato" method="post">
-      {% csrf_token %}
-      {{form}}
-      <input id="contato" type="submit" value="CriarContato">
-    </form>
+
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+
+
+
+<form action="/url/to/submit/" method="post" class="form">
+  {% csrf_token %}
+{% bootstrap_formset forms %}
+  {% buttons %}
+    <button type="submit" class="btn btn-primary">
+      {% bootstrap_icon "phone-alt" %} Submit
+    </button>
+  {% endbuttons %}
+</form>
     {%endblock%}
 {%block script%}
     $("#id_Celular").mask("(00)00000-0000");

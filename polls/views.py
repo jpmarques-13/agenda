@@ -4,6 +4,7 @@ from django.shortcuts import render
 from .forms import ContatoForm
 from .models import Contato
 from django.shortcuts import redirect
+
 #import
 
 def index (request):

@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'polls',
+    'bootstrap3',
 ]
 
 MIDDLEWARE = [
@@ -127,3 +128,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+
+BOOTSTRAP3 = {
+    "error_css_class": "bootstrap3-error",
+    "required_css_class": "bootstrap3-required",
+    "javascript_in_head": True,
+}
