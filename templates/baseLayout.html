@@ -1,17 +1,10 @@
-{# Load the tag library #}
-{% load bootstrap3 %}
-
-{# Load CSS and JavaScript #}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-
       {% load static %}
     <meta charset="utf-8">
     <link rel="stylesheet" href="{% static "style.css" %}">
-    <title>{% block title%} {%endblock%}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
     {%block script-link%}{%endblock%}
   </head>
   <body>

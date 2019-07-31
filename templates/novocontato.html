@@ -1,9 +1,8 @@
 {%extends 'baseLayout.html'%}
 {# Load the tag library #}
 {% load bootstrap3 %}
-
-{# Load CSS and JavaScript #}
 {% bootstrap_css %}
+{# Load CSS and JavaScript #}
 {% bootstrap_javascript %}
 {%block title%}Criar Contato{%endblock%}
     {%block script-link%}
@@ -12,28 +11,28 @@
     {%endblock%}
 {%block side-bar%}
 <div class="side-bar">
-  <span  class='plus-icon'>{% bootstrap_icon "plus" %}</span>
-  <p>Novo Contato</p>
-          </div>
+    <span  class='plus-icon'>{% bootstrap_icon "plus" %}</span>
+    <p>Novo Contato</p>
+</div>
 {%endblock%}
-
 {%block content%}
-
-
-{# Display django.contrib.messages as Bootstrap alerts #}
-
-
-
-<form action="/url/to/submit/" method="post" class="form">
-  {% csrf_token %}
-{% bootstrap_formset forms %}
-  {% buttons %}
-    <button type="submit" class="btn btn-primary">
-      {% bootstrap_icon "phone-alt" %} Submit
-    </button>
-  {% endbuttons %}
-</form>
-    {%endblock%}
+<table class="table table-striped">
+    <tbody>
+        <tr>
+            <h5>Dados Pessoais</h5>
+        </tr>
+        <tr>
+            <div class="content">
+                <form class="form-group" action="{%url 'polls:CriarContato'%}" method="post">
+                  {%csrf_token%}
+                  {%bootstrap_form form%}
+                  {% bootstrap_button "Save" button_type="submit" button_class="btn-primary" %}
+                </form>
+            </div>
+        </tr>
+    </tbody>
+</table>
+{%endblock%}
 {%block script%}
     $("#id_Celular").mask("(00)00000-0000");
 {%endblock%}

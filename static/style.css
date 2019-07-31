@@ -24,3 +24,25 @@
   top: 5%;
   font-size:40px;
 }
+.content{
+  margin: 0 auto;
+  width:90%;
+}
+ h5{
+  padding-left: 60px;
+}
+.row{
+  width: 95%;
+  display:flex;
+  justify-content: space-between;
+}
+.col-sm-3{
+background-color:lavender;
+display:flex;
+justify-content:center;
+width:30%;
+}
+div a{
+  width:30%;
+
+}

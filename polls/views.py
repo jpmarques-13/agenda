@@ -16,7 +16,8 @@ def CriarContato (request):
         form = ContatoForm(request.POST)
         if form.is_valid():
             form.save()
-        redirect('polls:VerContatos')
+        return redirect('polls:VerContatos')
+
     else:
         form = ContatoForm()
     return render (request,'novocontato.html',{'form':form})
