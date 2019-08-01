@@ -8,7 +8,7 @@ from django.shortcuts import redirect
 #import
 
 def index (request):
-    return HttpResponse('hello world')
+    return render(request,'index.html')
 
 
 def CriarContato (request):

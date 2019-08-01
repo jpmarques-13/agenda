@@ -1,16 +1,43 @@
 {%extends 'baseLayout.html'%}
-
-    {%block title%}Editar um contato{%endblock%}
+{# Load the tag library #}
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{# Load CSS and JavaScript #}
+{% bootstrap_javascript %}
+{%block title%}Criar Contato{%endblock%}
     {%block script-link%}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
     {%endblock%}
+    {%block side-bar%}
 
+    <div class="side-bar">
+        <span  class='plus-icon'>{% bootstrap_icon "pencil" %}</span>
+        <p>Editar Contato</p>
+    </div>
+    <style>
+    .side-bar{
+      margin-top:-25px;
+      }
+    </style>
+    {%endblock%}
     {%block content%}
-    
-    <form class="form-inline" action="{%url 'polls:editar' id %}" method="post">
-      {% csrf_token %}
-      {{form}}
-      <input  type="submit" value="editarContatos">
-    </form>
+    <div class="card">
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <h5>Dados Pessoais</h5>
+                </tr>
+                <tr>
+                    <div class="content">
+                        <form class="form-group" action="{%url 'polls:editar' id %}" method="post">
+                          {%csrf_token%}
+                          {%bootstrap_form form%}
+                          {% bootstrap_button "Save" button_type="submit" button_class="btn-primary" %}
+                        </form>
+                    </div>
+                </tr>
+            </tbody>
+        </table>
+    </div>
     {%endblock%}

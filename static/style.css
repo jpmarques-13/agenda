@@ -32,17 +32,22 @@
   padding-left: 60px;
 }
 .row{
-  width: 95%;
+  width:100%;
   display:flex;
-  justify-content: space-between;
+  justify-content:space-between;
 }
 .col-sm-3{
-background-color:lavender;
 display:flex;
 justify-content:center;
-width:30%;
+width: 100%;
 }
-div a{
-  width:30%;
-
+.cta{
+  background:#00CC80;
+  width:20%;
+  display:block;
+  color:white;
+  border-radius: 20px;
+  font-size:1.4em;
+  margin:3% auto 7%;
+  z-index: 4px;
 }

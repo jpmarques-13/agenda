@@ -9,33 +9,57 @@
     <span  class='plus-icon'>{% bootstrap_icon "user" %}</span>
     <p>Meus Contatos</p>
 </div>
+<style>
+.side-bar{
+  margin-top:-25px;
+  }
+</style>
 {%endblock%}
 
 {%block content%}
-<div class="row">
-  <div class='col-sm-3'><a href="#">  FILTRO</a></div>
-  <div  class='col-sm-3'><a href="#"> CADASTRAR CONTATO</a> </div>
+<div class="container-fluid a">
+  <style media="screen">
+    .a{
+      height: 50px;
+      display: flex;
+      justify-content:center;
+      padding-top:0.5%;
+      }
+  </style>
+  <div class=" row">
+    <style media="screen">
+    </style>
+    <div class="col-sm-4">
+      <button type="button" class="btn btn-success btn-block">{% bootstrap_icon "filter" %} Filtro</button>
+    </div>
+    <div class="col-sm-4">
+  <a href="{%url 'polls:CriarContato'%}"> <button type="button" class="btn btn-primary btn-block"> {% bootstrap_icon "plus" %} Cadastrar Contato</button></a>
+    </div>
+  </div>
 </div>
-    <table class='table table-striped '>
-      <thead>
 
-        <tr>
-          <td>Nome</td>
-          <td>Email</td>
-          <td>Celular</td>
-          <td>Acoes</td>
-        </tr>
-              </thead>
-            {% for contato in contatos %}
-      <tr>
-          <td>{{contato.Nome|truncatewords:5}}</td>
-          <td>{{contato.Email}}</td>
-          <td>{{contato.Celular}}</td>
-          <td> <a href="{%url 'polls:editar' contato.id %}">{% bootstrap_button "Editar" button_type="submit" button_class="btn-primary" %}</a> </td>
-          <td> <a href="{%url 'polls:deletar' contato.id %}"> {% bootstrap_button "Deletar" button_type="submit" button_class="btn-primary" %} </a></td>
-      </tr>
-            {% endfor %}
-    </table>
+<div class="jumbotron">
+        <table class='table table-striped '>
+          <thead>
+
+            <tr>
+              <td>Nome</td>
+              <td>Email</td>
+              <td>Celular</td>
+              <td>Acoes</td>
+            </tr>
+                  </thead>
+                {% for contato in contatos %}
+          <tr>
+              <td>{{contato.Nome}}</td>
+              <td>{{contato.Email}}</td>
+              <td>{{contato.Celular}}</td>
+              <td> <a href="{%url 'polls:editar' contato.id %}"><button type="button" class="btn btn-primary"> {% bootstrap_icon "pencil" %} Editar</button></a> </td>
+              <td> <a href="{%url 'polls:deletar' contato.id %}"><button type="button" class="btn btn-primary"> {% bootstrap_icon "trash" %} Deletar</button></a> </td>
+          </tr>
+                {% endfor %}
+        </table>
+</div>
 {%endblock%}
   </body>
 </html>

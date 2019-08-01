@@ -1,0 +1,16 @@
+{%extends 'baseLayout.html'%}
+{%load static%}
+{%block content%}
+<div class="container">
+
+<img src="{% static "fourier.jpg" %}" alt="My image">
+
+</div>
+<style media="screen">
+  .container{
+    display:flex;
+    justify-content: center;
+
+  }
+</style>
+{%endblock%}
