@@ -17,28 +17,34 @@
 {%endblock%}
 
 {%block content%}
-<div class="container-fluid a">
-  <style media="screen">
-    .a{
-      height: 50px;
-      display: flex;
-      justify-content:center;
-      padding-top:0.5%;
-      }
-  </style>
-  <div class=" row">
-    <style media="screen">
-    </style>
-    <div class="col-sm-4">
-      <button type="button" class="btn btn-success btn-block">{% bootstrap_icon "filter" %} Filtro</button>
-    </div>
-    <div class="col-sm-4">
-  <a href="{%url 'polls:CriarContato'%}"> <button type="button" class="btn btn-primary btn-block"> {% bootstrap_icon "plus" %} Cadastrar Contato</button></a>
-    </div>
-  </div>
-</div>
 
+<style media="screen" >
+  .alert{
+    z-index:1;
+  }
+  .jumbotron{
+    z-index:2;
+  }
+</style>
+</div>
 <div class="jumbotron">
+  {% if messages %}
+      {% for message in messages %}
+      <div  class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span>
+          </button>
+          <h4 >{{ message }}</h4>
+
+      </div>
+      {% endfor %}
+  {% endif %}
+  <style media="screen">
+    .alert{
+      background-color: green;
+      color:white;
+    }
+  </style>
         <table class='table table-striped '>
           <thead>
 
@@ -60,6 +66,18 @@
                 {% endfor %}
         </table>
 </div>
+<style media="screen">
+.row {
+padding-top: 20px;
+padding-bottom: 5%;
+width:110%;
+background-color: #00F3FF;
+}
+.container{
+  height: 50px;
+}
+
+</style>
 {%endblock%}
   </body>
 </html>

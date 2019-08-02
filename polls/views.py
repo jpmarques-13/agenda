@@ -4,6 +4,7 @@ from django.shortcuts import render
 from .forms import ContatoForm
 from .models import Contato
 from django.shortcuts import redirect
+from django.contrib import messages
 
 #import
 
@@ -16,11 +17,11 @@ def CriarContato (request):
         form = ContatoForm(request.POST)
         if form.is_valid():
             form.save()
-        return redirect('polls:VerContatos')
-
+            mensagem = "Contato criado com sucesso"
+            messages.warning(request, mensagem)
     else:
         form = ContatoForm()
-    return render (request,'novocontato.html',{'form':form})
+    return render (request,'novocontato.html',locals())
 # Create your views here.
 
 
@@ -33,13 +34,18 @@ def EditarContatos (request,id):
     contatos = Contato.objects.get(pk=id)
     form=ContatoForm(request.POST or None,instance=contatos)
     if request.method == 'POST':
-        #form = ContatoForm(request.POST, instance=contatos )
         if form.is_valid():
             form.save()
-        return redirect('polls:VerContatos')
-    else:
-        return render (request,'editarContato.html',locals())
+            mensagem = "Contato editado com sucesso"
+            messages.warning(request, mensagem)
+            return redirect('polls:VerContatos')
+            #form = ContatoForm(request.POST, instance=contatos )
+
+        #return redirect('polls:VerContatos')
+    return render (request,'editarContato.html',locals())
 def deletarContatos (request,id):
     contatos = Contato.objects.get(pk=id)
     contatos.delete()
+    mensagem = "Contato deletado com sucesso"     
+    messages.warning(request, mensagem)
     return redirect('polls:VerContatos')

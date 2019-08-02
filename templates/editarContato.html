@@ -22,7 +22,7 @@
     </style>
     {%endblock%}
     {%block content%}
-    <div class="card">
+    <div class="card" >
         <table class="table table-striped">
             <tbody>
                 <tr>
@@ -33,11 +33,18 @@
                         <form class="form-group" action="{%url 'polls:editar' id %}" method="post">
                           {%csrf_token%}
                           {%bootstrap_form form%}
-                          {% bootstrap_button "Save" button_type="submit" button_class="btn-primary" %}
+                        <input type="Submit"  class="btn btn-primary" value="Editar" >
                         </form>
+                        <div class="collapse" id="collapseExample">
+
                     </div>
                 </tr>
             </tbody>
         </table>
     </div>
+    {%endblock%}
+
+    {%block script%}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     {%endblock%}
