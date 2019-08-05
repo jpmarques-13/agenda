@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.http import HttpResponse
 from django.shortcuts import render
-from .forms import ContatoForm
+from .forms import *
 from .models import Contato
 from django.shortcuts import redirect
 from django.contrib import messages
@@ -26,7 +26,15 @@ def CriarContato (request):
 
 
 def VerContatos (request):
-    contatos = Contato.objects.all()
+    form=Filtro(request.GET or None)
+    contatos=Contato.objects.all()
+    if form.is_valid():
+        celular=form.cleaned_data.get("celular")
+        nome=form.cleaned_data.get("nome")
+        if nome:
+            contatos = contatos.filter(Nome=nome)
+        if celular:
+            contatos = contatos.filter(Celular=celular)
     return render (request,'VerContatos.html',locals())
 
 
@@ -40,12 +48,11 @@ def EditarContatos (request,id):
             messages.warning(request, mensagem)
             return redirect('polls:VerContatos')
             #form = ContatoForm(request.POST, instance=contatos )
-
         #return redirect('polls:VerContatos')
     return render (request,'editarContato.html',locals())
 def deletarContatos (request,id):
     contatos = Contato.objects.get(pk=id)
     contatos.delete()
-    mensagem = "Contato deletado com sucesso"     
+    mensagem = "Contato deletado com sucesso"
     messages.warning(request, mensagem)
     return redirect('polls:VerContatos')

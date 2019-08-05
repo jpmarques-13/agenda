@@ -4,6 +4,11 @@
 {% bootstrap_css %}
 {% bootstrap_javascript %}
 {%block title%}Lista de Contatos{%endblock%}
+{%block script-link%}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+{%endblock%}
 {%block side-bar%}
 <div class="side-bar">
     <span  class='plus-icon'>{% bootstrap_icon "user" %}</span>
@@ -17,7 +22,6 @@
 {%endblock%}
 
 {%block content%}
-
 <style media="screen" >
   .alert{
     z-index:1;
@@ -35,7 +39,7 @@
               <span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span>
           </button>
           <h4 >{{ message }}</h4>
-
+</div>
       </div>
       {% endfor %}
   {% endif %}
@@ -44,7 +48,43 @@
       background-color: green;
       color:white;
     }
+
   </style>
+<div  class="row col-xl-8 ">
+
+<a type="button" name="button" class='btn btn-primary' data-toggle="collapse" data-target="#demo">Filtro (collapse)</a>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Filtro (Modal)</button>
+</div>
+<div class="modal fade" id="myModal" role="dialog">
+   <div class="modal-dialog">
+<div class="modal-content">
+    <div class="modal-body">
+      <form class="form-group" action="{%url 'polls:VerContatos'%}" method="get">
+        {%csrf_token%}
+        {%bootstrap_form form%}
+        {% bootstrap_button "Search" button_type="submit" button_class="btn-primary" %}
+        <a href="{%url 'polls:VerContatos'%}" class='btn btn-primary'>Cancel</a>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+
+</div>
+</div>
+
+</div>
+
+<div id='demo' class='collapse block' >
+  <form class="form-group" action="{%url 'polls:VerContatos'%}" method="get">
+    {%csrf_token%}
+    {%bootstrap_form form%}
+    {% bootstrap_button "Search" button_type="submit" button_class="btn-primary" %}
+    <a href="{%url 'polls:VerContatos'%}" class='btn btn-primary'>Cancel</a>
+  </form>
+  </div>
+
         <table class='table table-striped '>
           <thead>
 
@@ -55,29 +95,27 @@
               <td>Acoes</td>
             </tr>
                   </thead>
+                <tbody id='myTable'>
                 {% for contato in contatos %}
-          <tr>
-              <td>{{contato.Nome}}</td>
-              <td>{{contato.Email}}</td>
-              <td>{{contato.Celular}}</td>
-              <td> <a href="{%url 'polls:editar' contato.id %}"><button type="button" class="btn btn-primary"> {% bootstrap_icon "pencil" %} Editar</button></a> </td>
-              <td> <a href="{%url 'polls:deletar' contato.id %}"><button type="button" class="btn btn-primary"> {% bootstrap_icon "trash" %} Deletar</button></a> </td>
-          </tr>
+
+                  <tr>
+                      <td class='search nome'>{{contato.Nome}}</td>
+                      <td class='search email'>{{contato.Email}}</td>
+                      <td class='search celular'>{{contato.Celular}}</td>
+                      <td> <a href="{%url 'polls:editar' contato.id %}"><button type="button" class="btn btn-primary"> {% bootstrap_icon "pencil" %} Editar</button></a> </td>
+                      <td> <a href="{%url 'polls:deletar' contato.id %}"><button type="button" class="btn btn-primary"> {% bootstrap_icon "trash" %} Deletar</button></a> </td>
+                  </tr>
                 {% endfor %}
+            </tbody>
         </table>
 </div>
 <style media="screen">
-.row {
-padding-top: 20px;
-padding-bottom: 5%;
-width:110%;
-background-color: #00F3FF;
-}
-.container{
-  height: 50px;
-}
+
 
 </style>
 {%endblock%}
-  </body>
-</html>
+{%block script%}
+ <script type="text/javascript">
+        $("#id_celular").mask("(00)00000-0000");
+</script>
+{%endblock%}
