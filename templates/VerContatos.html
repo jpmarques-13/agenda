@@ -63,11 +63,8 @@
         {%csrf_token%}
         {%bootstrap_form form%}
         {% bootstrap_button "Search" button_type="submit" button_class="btn-primary" %}
-        <a href="{%url 'polls:VerContatos'%}" class='btn btn-primary'>Cancel</a>
+      <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
       </form>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
     </div>
   </div>
 
@@ -81,7 +78,6 @@
     {%csrf_token%}
     {%bootstrap_form form%}
     {% bootstrap_button "Search" button_type="submit" button_class="btn-primary" %}
-    <a href="{%url 'polls:VerContatos'%}" class='btn btn-primary'>Cancel</a>
   </form>
   </div>
 
@@ -97,7 +93,6 @@
                   </thead>
                 <tbody id='myTable'>
                 {% for contato in contatos %}
-
                   <tr>
                       <td class='search nome'>{{contato.Nome}}</td>
                       <td class='search email'>{{contato.Email}}</td>
@@ -109,10 +104,41 @@
             </tbody>
         </table>
 </div>
-<style media="screen">
+<div class="pagination">
+    <span class="step-links">
+      <div class="btn-group">
+
+        {% if contatos.has_previous and not contatos.has_next %}
+            <a class='btn btn-primary' href="?page=1">&laquo; first</a>
+            <a class='btn btn-primary' href='?page={{ contatos.previous_page_number }}'>previous</a>
+            <a class='btn btn-primary' href="#" disabled>{{ contatos.number }}</a>
+            <a class='btn btn-primary' href="#" disabled> next</a>
+            <a class='btn btn-primary' href="#" disabled> last</a>
+        {% endif %}
+        {% if contatos.has_previous and  contatos.has_next %}
+        <a class='btn btn-primary' href="?page=1">&laquo; first</a>
+        <a class='btn btn-primary' href='?page={{ contatos.previous_page_number }}'>previous</a>
+
+            <a class='btn btn-primary' href="#" disabled>{{ contatos.number }}</a>
+        {%endif%}
+        {%if contatos.has_next and  contatos.has_previous%}
+        <a class='btn btn-primary' href="?page={{ contatos.next_page_number }}">next</a>
+        <a class='btn btn-primary' href="?page={{ contatos.paginator.num_pages }}">last &raquo;</a>
+        {%endif%}
+        {% if contatos.has_next and not contatos.has_previous %}
+          <a class='btn btn-primary' href="#" disabled>&laquo; first</a>
+          <a class='btn btn-primary' href='#' disabled>previous</a>
+          <a class='btn btn-primary' href="#" disabled>{{ contatos.number }}</a>
+            <a class='btn btn-primary' href="?page={{ contatos.next_page_number }}">next</a>
+            <a class='btn btn-primary' href="?page={{ contatos.paginator.num_pages }}">last &raquo;</a>
+
+        {% endif %}
+
+      </div>
+    </span>
+</div>
 
 
-</style>
 {%endblock%}
 {%block script%}
  <script type="text/javascript">

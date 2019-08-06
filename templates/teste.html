@@ -24,24 +24,6 @@
 {%endblock%}
 {%block content%}
 
-<div class="card">
-    <table class="table table-striped">
-        <tbody>
-            <tr>
-                <h5>Dados Pessoais</h5>
-            </tr>
-            <tr>
-                <div class="content">
-                    <form class="form-group" action="{%url 'polls:CriarContato'%}" method="post">
-                      {%csrf_token%}
-                      {%bootstrap_form form%}
-                      {% bootstrap_button "Save" button_type="submit" button_class="btn-primary" %}
-                    </form>
-                </div>
-            </tr>
-        </tbody>
-    </table>
-</div>
 {%endblock%}
 {%block script%}
  <script type="text/javascript">
