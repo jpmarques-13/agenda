@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.http import HttpResponse
+from django.http import *
 from django.shortcuts import render
 from .forms import *
 from .models import Contato
@@ -36,7 +36,7 @@ def VerContatos (request):
         celular=form.cleaned_data.get("celular")
         nome=form.cleaned_data.get("nome")
         if nome:
-            contatos = contatos.filter(Nome=nome)
+            contatos = contatos.filter(Nome__icontains=nome)
         if celular:
             contatos = contatos.filter(Celular=celular)
     paginator=Paginator(contatos,ITEMS_PER_PAGE)
@@ -60,6 +60,8 @@ def EditarContatos (request,id):
             #form = ContatoForm(request.POST, instance=contatos )
         #return redirect('polls:VerContatos')
     return render (request,'editarContato.html',locals())
+
+
 def deletarContatos (request,id):
     contatos = Contato.objects.get(pk=id)
     contatos.delete()

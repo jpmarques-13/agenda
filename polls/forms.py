@@ -5,7 +5,7 @@ from .models import Contato
 class ContatoForm(ModelForm):
     class Meta:
         model=Contato
-        fields=['Nome','Email','Celular']
+        fields=['Nome','Email','Celular','Data']
 
 class Filtro(forms.Form):
     nome=forms.CharField(label=u'Nome', max_length=250, widget=forms.TextInput(

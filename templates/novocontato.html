@@ -42,10 +42,14 @@
         </tbody>
     </table>
 </div>
+
+
 {%endblock%}
 {%block script%}
  <script type="text/javascript">
         $("#id_Celular").mask("(00)00000-0000");
+        $("#id_Data").mask("00/00/0000");
+        document.getElementById("id_Data").placeholder='dd/mm/yyyy'
 </script>
 
 

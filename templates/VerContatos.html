@@ -12,139 +12,140 @@
 {%endblock%}
 {%block side-bar%}
 <div class="side-bar">
-    <span  class='plus-icon'>{% bootstrap_icon "user" %}</span>
-    <p>Meus Contatos</p>
+  <span  class='plus-icon'>{% bootstrap_icon "user" %}</span>
+  <p>Meus Contatos</p>
 </div>
 <style>
 .side-bar{
   margin-top:-25px;
-  }
+}
 </style>
 {%endblock%}
 
 {%block content%}
 <style media="screen" >
-  .alert{
-    z-index:1;
-  }
-  .jumbotron{
-    z-index:2;
-  }
+.alert{
+  z-index:1;
+}
+.jumbotron{
+  z-index:2;
+}
 </style>
-</div>
-<div class="jumbotron">
+
+
   {% if messages %}
-      {% for message in messages %}
-      <div  class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span>
-          </button>
-          <h4 >{{ message }}</h4>
+  {% for message in messages %}
+  <div  class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span>
+    </button>
+    <h4 >{{ message }}</h4>
+  </div>
+{% endfor %}
 </div>
-      </div>
-      {% endfor %}
-  {% endif %}
-  <style media="screen">
-    .alert{
-      background-color: green;
-      color:white;
-    }
+{% endif %}
 
-  </style>
+<div class="jumbotron col-lg-12 col-xl-12">
 <div  class="row col-xl-8 ">
-
-<a type="button" name="button" class='btn btn-primary' data-toggle="collapse" data-target="#demo">Filtro (collapse)</a>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Filtro (Modal)</button>
+  <a type="button" name="button" class='btn btn-primary' data-toggle="collapse" data-target="#demo">Filtro (collapse)</a>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Filtro (Modal)</button>
 </div>
 <div class="modal fade" id="myModal" role="dialog">
-   <div class="modal-dialog">
-<div class="modal-content">
-    <div class="modal-body">
-      <form class="form-group" action="{%url 'polls:VerContatos'%}" method="get">
-        {%csrf_token%}
-        {%bootstrap_form form%}
-        {% bootstrap_button "Search" button_type="submit" button_class="btn-primary" %}
-      <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-      </form>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <form class="form-group" action="{%url 'polls:VerContatos'%}" method="get">
+          {%csrf_token%}
+          {%bootstrap_form form%}
+          {% bootstrap_button "Search" button_type="submit" button_class="btn-primary" %}
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </form>
+      </div>
     </div>
   </div>
-
 </div>
-</div>
-
-</div>
-
 <div id='demo' class='collapse block' >
   <form class="form-group" action="{%url 'polls:VerContatos'%}" method="get">
     {%csrf_token%}
     {%bootstrap_form form%}
     {% bootstrap_button "Search" button_type="submit" button_class="btn-primary" %}
   </form>
-  </div>
-
-        <table class='table table-striped '>
-          <thead>
-
-            <tr>
-              <td>Nome</td>
-              <td>Email</td>
-              <td>Celular</td>
-              <td>Acoes</td>
-            </tr>
-                  </thead>
-                <tbody id='myTable'>
-                {% for contato in contatos %}
-                  <tr>
-                      <td class='search nome'>{{contato.Nome}}</td>
-                      <td class='search email'>{{contato.Email}}</td>
-                      <td class='search celular'>{{contato.Celular}}</td>
-                      <td> <a href="{%url 'polls:editar' contato.id %}"><button type="button" class="btn btn-primary"> {% bootstrap_icon "pencil" %} Editar</button></a> </td>
-                      <td> <a href="{%url 'polls:deletar' contato.id %}"><button type="button" class="btn btn-primary"> {% bootstrap_icon "trash" %} Deletar</button></a> </td>
-                  </tr>
-                {% endfor %}
-            </tbody>
-        </table>
 </div>
-<div class="row col-lg-12 col-xl-12" style="display:flex;justify-content:center;">
-      <div  class="btn-group col-lg-4 col-xl-4">
-        {% if contatos.has_previous and not contatos.has_next %}
-            <a class='btn btn-primary btn-sm a' href="?page=1">&laquo; </a>
-            <a class='btn btn-primary btn-sm a' href='?page={{ contatos.previous_page_number }}'>{% bootstrap_icon "chevron-left" %}</a>
-            <a class='btn btn-primary btn-sm a' href="#" disabled>{{ contatos.number }}</a>
-            <a class='btn btn-primary btn-sm a' href="#" disabled> {% bootstrap_icon "chevron-right" %}</a>
-            <a class='btn btn-primary btn-sm a' href="#" disabled>&raquo;</a>
-        {% endif %}
-        {% if contatos.has_previous and  contatos.has_next %}
-          <a class='btn btn-primary btn-sm a' href="?page=1">&laquo; </a>
-          <a class='btn btn-primary btn-sm a' href='?page={{ contatos.previous_page_number }}'>{% bootstrap_icon "chevron-left" %}</a>
-          <a class='btn btn-primary btn-sm a' href="#" disabled>{{ contatos.number }}</a>
-        {%endif%}
-        {%if contatos.has_next and  contatos.has_previous%}
-          <a class='btn btn-primary btn-sm a' href="?page={{ contatos.next_page_number }}">{% bootstrap_icon "chevron-right" %}</a>
-          <a class='btn btn-primary btn-sm a' href="?page={{ contatos.paginator.num_pages }}"> &raquo;</a>
-        {%endif%}
-        {% if contatos.has_next and not contatos.has_previous %}
-          <a class='btn btn-primary btn-sm a'   href="#" disabled>&laquo;</a>
-          <a class='btn btn-primary btn-sm a' href='#' disabled>{% bootstrap_icon "chevron-left" %} </a>
-          <a class='btn btn-primary btn-sm a' href="#" disabled>{{ contatos.number }}</a>
-          <a class='btn btn-primary btn-sm a' href="?page={{ contatos.next_page_number }}">{% bootstrap_icon "chevron-right" %}</a>
-          <a class='btn btn-primary btn-sm a' href="?page={{ contatos.paginator.num_pages }}"> &raquo;</a>
-        {% endif %}
-      </div>
-      <div class="  col-lg-4 col-xl-4 ">
-          {% bootstrap_paginate contatos range=1 show_prev_next="true" show_first_last="true" %}
-      </div>
 </div>
 
 <style media="screen">
-  .a{
-    width:35px;
-  }
+.alert{
+  background-color: green;
+  color:white;
+}
+</style>
+
+<table class='table table-striped '>
+  <thead>
+
+    <tr>
+      <td>Nome</td>
+      <td>Email</td>
+      <td>Celular</td>
+      <td>Data</td>
+      <td>Acoes</td>
+    </tr>
+  </thead>
+  <tbody id='myTable'>
+    {% for contato in contatos %}
+    <tr>
+      <td class='search nome'>{{contato.Nome}}</td>
+      <td class='search email'>{{contato.Email}}</td>
+      <td class='search celular'>{{contato.Celular}}</td>
+      <td class='search celular'>{{contato.Data|date:'d/m/Y'}}</td>
+      <td> <a href="{%url 'polls:editar' contato.id %}"><button type="button" class="btn btn-primary">{% bootstrap_icon "pencil" %} Editar</button></a> </td>
+      <td> <a href="{%url 'polls:deletar' contato.id %}"><button type="button" class="btn btn-primary">{% bootstrap_icon "trash" %} Deletar</button></a> </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<div class="row col-lg-12 col-xl-12" style="display:flex;justify-content:center;">
+  <div  class="btn-group col-lg-4 col-xl-4">
+    {% if contatos.has_previous and not contatos.has_next %}
+    <a class='btn btn-primary btn-sm a' href="?page=1">&laquo; </a>
+    <a class='btn btn-primary btn-sm a' href='?page={{ contatos.previous_page_number }}'>{% bootstrap_icon "chevron-left" %}</a>
+    <a class='btn btn-primary btn-sm a' href="#" disabled>{{ contatos.number }}</a>
+    <a class='btn btn-primary btn-sm a' href="#" disabled> {% bootstrap_icon "chevron-right" %}</a>
+    <a class='btn btn-primary btn-sm a' href="#" disabled>&raquo;</a>
+    {% endif %}
+    {% if contatos.has_previous and  contatos.has_next %}
+    <a class='btn btn-primary btn-sm a' href="?page=1">&laquo; </a>
+    <a class='btn btn-primary btn-sm a' href='?page={{ contatos.previous_page_number }}'>{% bootstrap_icon "chevron-left" %}</a>
+    <a class='btn btn-primary btn-sm a' href="#" disabled>{{ contatos.number }}</a>
+    {%endif%}
+    {%if contatos.has_next and  contatos.has_previous%}
+    <a class='btn btn-primary btn-sm a' href="?page={{ contatos.next_page_number }}">{% bootstrap_icon "chevron-right" %}</a>
+    <a class='btn btn-primary btn-sm a' href="?page={{ contatos.paginator.num_pages }}"> &raquo;</a>
+    {%endif%}
+    {% if contatos.has_next and not contatos.has_previous %}
+    <a class='btn btn-primary btn-sm a'   href="#" disabled>&laquo;</a>
+    <a class='btn btn-primary btn-sm a' href='#' disabled>{% bootstrap_icon "chevron-left" %} </a>
+    <a class='btn btn-primary btn-sm a' href="#" disabled>{{ contatos.number }}</a>
+    <a class='btn btn-primary btn-sm a' href="?page={{ contatos.next_page_number }}">{% bootstrap_icon "chevron-right" %}</a>
+    <a class='btn btn-primary btn-sm a' href="?page={{ contatos.paginator.num_pages }}"> &raquo;</a>
+    {% endif %}
+  </div>
+  <div class="  col-lg-4 col-xl-4 ">
+    {% bootstrap_paginate contatos range=1 show_prev_next="true" show_first_last="true" %}
+  </div>
+</div>
+
+<style media="screen">
+.a{
+  width:35px;
+}
 
 </style>
 {%endblock%}
 {%block script%}
- <script type="text/javascript">
-        $("#id_celular").mask("(00)00000-0000");
+<script >
+       $("#id_celular").mask("(00)00000-0000");
+       $("#id_Data").mask("00/00/0000");
+       document.getElementById ("id_Data").placeholder='dd/mm/yyyy'
 </script>
 {%endblock%}

@@ -46,9 +46,8 @@
 
     {%block script%}
     <script type="text/javascript">
-        $("#id_Celular").mask("(00)00000-0000");
-
-      </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+           $("#id_Celular").mask("(00)00000-0000");
+           $("#id_Data").mask("00/00/0000");
+           document.getElementById ("id_Data").placeholder='dd/mm/yyyy';
+   </script>
     {%endblock%}
