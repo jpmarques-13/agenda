@@ -6,6 +6,8 @@ from .models import Contato
 from django.shortcuts import redirect
 from django.contrib import messages
 from django.core.paginator import Paginator, InvalidPage
+from datetime import datetime
+from django.db.models import Count
 
 #import
 
@@ -32,6 +34,7 @@ def VerContatos (request):
     page = request.GET.get('page')
     form=Filtro(request.GET or None)
     contatos=Contato.objects.all()
+    data=datetime.now()
     if form.is_valid():
         celular=form.cleaned_data.get("celular")
         nome=form.cleaned_data.get("nome")
@@ -41,11 +44,14 @@ def VerContatos (request):
             contatos = contatos.filter(Celular=celular)
     paginator=Paginator(contatos,ITEMS_PER_PAGE)
     total=paginator.count
+    q=Contato.objects.annotate(Count('Nome',distinct=True))
+    print(q[0].Nome__count)
     try:
         contatos = paginator.page(page)
     except InvalidPage:
         contatos= paginator.page(1)
     return render (request,'VerContatos.html',locals())
+
 
 
 def EditarContatos (request,id):

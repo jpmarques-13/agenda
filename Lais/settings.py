@@ -131,7 +131,7 @@ STATICFILES_DIRS = [
 ]
 
 DATETIME_INPUT_FORMATS=[
- '%d/%m/%y'
+ '%d/%m/%Y'
 ]
 
 BOOTSTRAP3 = {

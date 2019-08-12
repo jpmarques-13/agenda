@@ -2,6 +2,8 @@
 from __future__ import unicode_literals
 from datetime import datetime
 from django.db import models
+from django.utils.timesince import timesince
+from django.utils import timezone
 
 # Create your models here.
 
