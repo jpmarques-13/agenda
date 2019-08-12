@@ -12,3 +12,4 @@ class Contato(models.Model):
     Email = models.EmailField()
     Celular =  models.CharField(max_length=14)
     Data = models.DateField(blank=True)
+    Age = models.IntegerField(default=20)

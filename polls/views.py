@@ -7,7 +7,7 @@ from django.shortcuts import redirect
 from django.contrib import messages
 from django.core.paginator import Paginator, InvalidPage
 from datetime import datetime
-from django.db.models import Count
+from django.db.models import Count, Max, Min
 
 #import
 
@@ -34,6 +34,10 @@ def VerContatos (request):
     page = request.GET.get('page')
     form=Filtro(request.GET or None)
     contatos=Contato.objects.all()
+    q=contatos.aggregate(min_age=Min('Age'))
+    Q=contatos.annotate(num_name=Count('Nome'))
+    print(q)
+    print(Q[0].num_name)
     data=datetime.now()
     if form.is_valid():
         celular=form.cleaned_data.get("celular")
@@ -44,8 +48,6 @@ def VerContatos (request):
             contatos = contatos.filter(Celular=celular)
     paginator=Paginator(contatos,ITEMS_PER_PAGE)
     total=paginator.count
-    q=Contato.objects.annotate(Count('Nome',distinct=True))
-    print(q[0].Nome__count)
     try:
         contatos = paginator.page(page)
     except InvalidPage:
