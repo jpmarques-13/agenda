@@ -34,9 +34,7 @@ def VerContatos (request):
     page = request.GET.get('page')
     form=Filtro(request.GET or None)
     contatos=Contato.objects.all()
-    q=contatos.aggregate(min_age=Min('Age'))
-    Q=contatos.annotate(num_name=Count('Nome'))
-    print(q)
+    Q=contatos.annotate(num_name=Count('Nome')) 
     print(Q[0].num_name)
     data=datetime.now()
     if form.is_valid():

@@ -86,6 +86,7 @@
       <td class='search email'>{{contato.Email}}</td>
       <td class='search celular'>{{contato.Celular}}</td>
       <td class='search celular'>{{contato.Data|date:'d/m/Y'}}</td>
+      <td>{{contato.age}}</td>
       <td>{%if contato.Data|leftbirt:data%}
               {%if contato.Data|logicalbirt:data%}
                   faltam {{contato.Data|leftbirt:data}}
