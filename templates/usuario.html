@@ -1,0 +1,49 @@
+{%extends 'baseLayout.html'%}
+{# Load the tag library #}
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{# Load CSS and JavaScript #}
+{% bootstrap_javascript %}
+{%block title%}Criar Contato{%endblock%}
+    {%block script-link%}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="/resources/demos/style.css">
+    {%endblock%}
+{%block side-bar%}
+
+<div class="side-bar">
+    <span  class='plus-icon'>{% bootstrap_icon "plus" %}</span>
+    <p>Novo Contato</p>
+</div>
+<style>
+.side-bar{
+  margin-top:-25px;
+  }
+</style>
+{%endblock%}
+{%block content%}
+
+<div class="card">
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <h5>Dados Pessoais</h5>
+            </tr>
+            <tr>
+                <div class="content">
+                    <form class="form-group" action="{%url 'autenticacao:novoCadastro'%}" method="post">
+                      {%csrf_token%}
+                      {%bootstrap_form form%}
+                      {% bootstrap_button "Save" button_type="submit" button_class="btn-primary" %}
+                    </form>
+                </div>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+{%endblock%}

@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'polls',
-    
+    'autenticacao',
+
     'bootstrap3',
     'bootstrap_pagination',
 ]

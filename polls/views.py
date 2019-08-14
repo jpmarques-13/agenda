@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.http import *
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .forms import *
 from .models import Contato
-from django.shortcuts import redirect
 from django.contrib import messages
 from django.core.paginator import Paginator, InvalidPage
 from datetime import datetime
@@ -34,7 +33,7 @@ def VerContatos (request):
     page = request.GET.get('page')
     form=Filtro(request.GET or None)
     contatos=Contato.objects.all()
-    Q=contatos.annotate(num_name=Count('Nome')) 
+    Q=contatos.annotate(num_name=Count('Nome'))
     print(Q[0].num_name)
     data=datetime.now()
     if form.is_valid():
