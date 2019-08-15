@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'Lais.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'agenda',
+        'NAME': 'postgres',
         'USER': 'joao',
         'PASSWORD': 'akin2010',
         'HOST': 'localhost',

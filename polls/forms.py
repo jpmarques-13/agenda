@@ -6,7 +6,7 @@ from .models import Contato
 class ContatoForm(ModelForm):
     class Meta:
         model=Contato
-        fields=['Nome','Email','Celular','Data']
+        fields=['Nome','Email','Celular','Data','cpf']
     Data=forms.DateField(
         widget=forms.DateInput(format='%m/%d/%Y'),
         input_formats=('%m/%d/%Y',),

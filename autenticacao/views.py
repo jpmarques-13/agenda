@@ -29,6 +29,7 @@ def autenticacao(request):
             mensagem = "login efetuado corretamente"
             messages.warning ( request, mensagem)
             login(request,user)
+            return redirect('polls:VerContatos')
         else:
             mensagem = "login incorreto"
             messages.warning ( request, mensagem)

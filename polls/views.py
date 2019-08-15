@@ -7,32 +7,48 @@ from django.contrib import messages
 from django.core.paginator import Paginator, InvalidPage
 from datetime import datetime
 from django.db.models import Count, Max, Min
-
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 #import
 
 def index (request):
     return render(request,'index.html')
 
 
+@login_required
 def CriarContato (request):
     if request.method == 'POST':
         form = ContatoForm(request.POST)
+        cpf=request.POST.get('cpf')
+        contatos=Contato.objects.get(cpf=cpf)
+        print(cpf)
         if form.is_valid():
             form.save()
+            print(cpf)
+            contatos.donosDeAgenda.add(request.user)
             mensagem = "Contato criado com sucesso"
             messages.warning(request, mensagem)
             return redirect('polls:VerContatos')
+        else:
+            if Contato.objects.get(cpf=cpf):
+                contatos.donosDeAgenda.add(request.user)
+                mensagem = "Contato criado com sucesso"
+                messages.warning(request, mensagem)
+                return redirect('polls:VerContatos')
     else:
         form = ContatoForm()
     return render (request,'novocontato.html',locals())
 # Create your views here.
 
 
+@login_required
 def VerContatos (request):
+    print(request.user.contato_set.all())
+    print(Contato.objects.all())
     ITEMS_PER_PAGE = 4
     page = request.GET.get('page')
     form=Filtro(request.GET or None)
-    contatos=Contato.objects.all()
+    contatos=request.user.contato_set.all()
     Q=contatos.annotate(num_name=Count('Nome'))
     print(Q[0].num_name)
     data=datetime.now()
@@ -52,7 +68,7 @@ def VerContatos (request):
     return render (request,'VerContatos.html',locals())
 
 
-
+@login_required
 def EditarContatos (request,id):
     contatos = Contato.objects.get(pk=id)
     form=ContatoForm(request.POST or None,instance=contatos)
@@ -67,9 +83,15 @@ def EditarContatos (request,id):
     return render (request,'editarContato.html',locals())
 
 
+@login_required
 def deletarContatos (request,id):
     contatos = Contato.objects.get(pk=id)
-    contatos.delete()
-    mensagem = "Contato deletado com sucesso"
-    messages.warning(request, mensagem)
+    if request.user.contato_set.all().count()>1:
+        contatos.donosDeAgenda.remove(request.user)
+        mensagem = "Contato deletado com sucesso"
+        messages.warning(request, mensagem)
+    else:
+        contatos.delete()
+        mensagem = "Contato deletado com sucesso"
+        messages.warning(request, mensagem)
     return redirect('polls:VerContatos')
