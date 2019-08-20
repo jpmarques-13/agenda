@@ -21,9 +21,13 @@
 
                 <li class='active'> <a href="{%url 'polls:CriarContato'%}">Novo contato</a>  </li>
                 <li class='active'> <a href="{%url 'polls:VerContatos'%}">Ver contatos</a>  </li>
+                {%if request.user.username%}
                 <li class='active'> <a href="{%url 'polls:VerContatos'%}"> {{request.user.username}}</a>  </li>
-
-
+                <li class='active'> <a href="{%url 'autenticacao:logout_view'%}"> logout</a>  </li>
+                {%else%}
+                <li class='active'><a href="{%url 'autenticacao:autenticacao'%}"> login </a> </li>
+                <li class='active'> <a href="{%url 'autenticacao:novoCadastro'%}"> Sign up </a>   </li>
+                {%endif%}
               </ul>
           </div>
       </nav>

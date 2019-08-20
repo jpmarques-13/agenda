@@ -15,7 +15,20 @@ class Contato(models.Model):
     Data = models.DateField(blank=True,validators=[validate_year_birtday])
     donosDeAgenda=models.ManyToManyField(User)
     cpf=models.CharField(max_length=14,unique=True,blank=True,null=True)
+
+
     @property
     def age(self):
         "retorna a idade de cada contato"
         return int((datetime.now().date()-self.Data).days/365.25)
+
+
+    @property
+    def tempoRestante(self):
+        now = datetime.now()
+        aniversario = datetime(now.year,self.Data.month,self.Data.day)
+        delta = aniversario - now
+        if delta.days<4 and delta.days>-4:
+            return delta
+        else:
+            return None

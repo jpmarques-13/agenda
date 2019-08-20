@@ -77,25 +77,28 @@
       <td>Data</td>
       <td>idade</td>
       <td>Aniversario</td>
-      <td>Acoes</td>
+      <td>cpf</td>
     </tr>
   </thead>
   <tbody id='myTable'>
     {% for contato in contatos%}
+      {{contato.tempoRestante.days}}
     <tr>
       <td class='search nome'>{{contato.Nome}}</td>
       <td class='search email'>{{contato.Email}}</td>
       <td class='search celular'>{{contato.Celular}}</td>
       <td class='search celular'>{{contato.Data|date:'d/m/Y'}}</td>
       <td>{{contato.age}}</td>
-      <td>{%if contato.Data|leftbirt:data%}
-              {%if contato.Data|logicalbirt:data%}
-                  faltam {{contato.Data|leftbirt:data}}
-              {%else%}
-                  <strong>passaram</strong> {{contato.Data|leftbirt:data}}
-              {%endif%}
-          {%endif%}
+      <td>
+        {%if contato.tempoRestante%}
+            {%if contato.tempoRestante.days|isPositive %}
+                  faltam {{contato.tempoRestante.days}} dias
+            {%else%}
+                  passaram {{contato.tempoRestante.days|absolute}} dias
+            {%endif%}
+        {%endif%}
        </td>
+       <td class='search celular'>{{contato.cpf}}</td>
       <td> <a href="{%url 'polls:editar' contato.id %}"><button type="button" class="btn btn-primary">{% bootstrap_icon "pencil" %} Editar</button></a> </td>
       <td> <a href="{%url 'polls:deletar' contato.id %}"><button type="button" class="btn btn-primary">{% bootstrap_icon "trash" %} Deletar</button></a> </td>
     </tr>

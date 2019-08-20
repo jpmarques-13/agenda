@@ -11,14 +11,14 @@ TIMESINCE_CHUNKS = (
 )
 @register.filter
 def leftbirt(d, now=None):
-    # Convert datetime.date to datetime.datetime for comparison.
+
     if not now:
         now = datetime.date.now()
     if not isinstance(d, datetime.datetime):
         d = datetime.datetime(now.year, d.month, d.day)
 
     delta = d - now
-    # ignore microseconds
+
     since = abs(delta.days * 24 * 60 * 60 + delta.seconds)//3600
     if since<=72:
         for i, (seconds, name) in enumerate(TIMESINCE_CHUNKS):
@@ -31,16 +31,30 @@ def leftbirt(d, now=None):
 @register.filter
 def logicalbirt(d, now=None):
 
-    # Convert datetime.date to datetime.datetime for comparison.
     if not now:
         now = datetime.date.now()
     if not isinstance(d, datetime.datetime):
         d = datetime.datetime(now.year, d.month, d.day)
 
     delta = d - now
-    # ignore microseconds
+
     since = delta.days * 24 * 60 * 60 + delta.seconds
     if since >= 0:
         return True
     else:
         return False
+
+@register.filter
+def isPositive(num):
+    if num>0 :
+        return True
+    else:
+        return False
+
+@register.filter
+def absolute(num):
+    if num>0:
+        return num
+    else:
+        return -num
+    return abs

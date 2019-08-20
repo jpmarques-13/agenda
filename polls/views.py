@@ -11,29 +11,33 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 #import
 
-def index (request):
+
+def index(request):
     return render(request,'index.html')
 
 
-@login_required
+@login_required(login_url='Usuario/login')
 def CriarContato (request):
     if request.method == 'POST':
         form = ContatoForm(request.POST)
         cpf=request.POST.get('cpf')
-        contatos=Contato.objects.get(cpf=cpf)
-        print(cpf)
         if form.is_valid():
-            form.save()
-            print(cpf)
-            contatos.donosDeAgenda.add(request.user)
-            mensagem = "Contato criado com sucesso"
-            messages.warning(request, mensagem)
-            return redirect('polls:VerContatos')
-        else:
-            if Contato.objects.get(cpf=cpf):
+            if len(Contato.objects.filter(cpf=cpf))>0:
+                contatos = Contato.objects.get(cpf=cpf)
+                form = ContatoForm(request.POST, instance=contatos)
+                contato = form.save(commit=False)
+                contato.save()
                 contatos.donosDeAgenda.add(request.user)
+                mensagem = "Teste123"
+                messages.warning(request, mensagem)
+                return redirect('polls:VerContatos')
+            else:
+                contato = form.save(commit=False)
+                contato.cpf=cpf
+                contato.save()
                 mensagem = "Contato criado com sucesso"
                 messages.warning(request, mensagem)
+                contato.donosDeAgenda.add(request.user)
                 return redirect('polls:VerContatos')
     else:
         form = ContatoForm()
@@ -41,16 +45,13 @@ def CriarContato (request):
 # Create your views here.
 
 
-@login_required
+@login_required(login_url='Usuario/login')
 def VerContatos (request):
-    print(request.user.contato_set.all())
-    print(Contato.objects.all())
     ITEMS_PER_PAGE = 4
     page = request.GET.get('page')
     form=Filtro(request.GET or None)
     contatos=request.user.contato_set.all()
     Q=contatos.annotate(num_name=Count('Nome'))
-    print(Q[0].num_name)
     data=datetime.now()
     if form.is_valid():
         celular=form.cleaned_data.get("celular")
@@ -58,7 +59,7 @@ def VerContatos (request):
         if nome:
             contatos = contatos.filter(Nome__icontains=nome)
         if celular:
-            contatos = contatos.filter(Celular=celular)
+            contatos = contatos.filter(Celular__icontains=celular)
     paginator=Paginator(contatos,ITEMS_PER_PAGE)
     total=paginator.count
     try:
@@ -68,7 +69,6 @@ def VerContatos (request):
     return render (request,'VerContatos.html',locals())
 
 
-@login_required
 def EditarContatos (request,id):
     contatos = Contato.objects.get(pk=id)
     form=ContatoForm(request.POST or None,instance=contatos)
@@ -78,12 +78,9 @@ def EditarContatos (request,id):
             mensagem = "Contato editado com sucesso"
             messages.warning(request, mensagem)
             return redirect('polls:VerContatos')
-            #form = ContatoForm(request.POST, instance=contatos )
-        #return redirect('polls:VerContatos')
     return render (request,'editarContato.html',locals())
 
 
-@login_required
 def deletarContatos (request,id):
     contatos = Contato.objects.get(pk=id)
     if request.user.contato_set.all().count()>1:

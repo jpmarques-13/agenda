@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^VerContatos$',views.VerContatos,name='VerContatos'),
     url(r'^editarContatos/(?P<id>\d+)/$', views.EditarContatos, name="editar"),
     url(r'^deletarContatos/(?P<id>\d+)/$',views.deletarContatos,name='deletar'),
+    url(r'^',views.index,name='homepage')
 ]

@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 
 # Create your views here.
 
@@ -34,3 +34,7 @@ def autenticacao(request):
             mensagem = "login incorreto"
             messages.warning ( request, mensagem)
     return render(request,'login.html',locals())
+
+def logout_view(request):
+    logout(request)
+    return redirect('polls:homepage')
