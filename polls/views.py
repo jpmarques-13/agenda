@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+import csv
+
+from djqscsv import render_to_csv_response
+
 from django.http import *
 from django.shortcuts import render,redirect
 from .forms import *
@@ -44,6 +48,10 @@ def CriarContato (request):
     return render (request,'novocontato.html',locals())
 # Create your views here.
 
+def csv_view(request,id):
+    csv=Contato.objects.all().filter(pk=id).values('Nome','Email','Celular')
+    return render_to_csv_response(csv,delimiter=';',field_header_map={'Nome': 'nome',
+                                                    'Email': 'email','Celular': 'celular'})
 
 @login_required(login_url='Usuario/login')
 def VerContatos (request):
@@ -51,7 +59,6 @@ def VerContatos (request):
     page = request.GET.get('page')
     form=Filtro(request.GET or None)
     contatos=request.user.contato_set.all()
-    Q=contatos.annotate(num_name=Count('Nome'))
     data=datetime.now()
     if form.is_valid():
         celular=form.cleaned_data.get("celular")

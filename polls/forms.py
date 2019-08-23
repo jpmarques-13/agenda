@@ -11,8 +11,8 @@ class ContatoForm(ModelForm):
         model  = Contato
         fields = ['Nome','Email','Celular','Data',]
     Data = forms.DateField(
-        widget = forms.DateInput(format='%m/%d/%Y'),
-        input_formats = ('%m/%d/%Y',),
+        widget=forms.DateInput(format='%m/%d/%Y'),
+        input_formats=('%m/%d/%Y',),
     )
     def clean_cpf(self):
         cpf = self.cleaned_data.get('cpf')
@@ -20,7 +20,7 @@ class ContatoForm(ModelForm):
 
 
 class Filtro(forms.Form):
-    nome   =forms.CharField(label=u'Nome', max_length=250, widget=forms.TextInput(
+    nome = forms.CharField(label=u'Nome', max_length=250, widget=forms.TextInput(
     attrs={'class': 'form-control'}), required=False)
-    celular=forms.CharField(label=u'Celular', max_length=14, widget=forms.TextInput(
+    celular = forms.CharField(label=u'Celular', max_length=14, widget=forms.TextInput(
     attrs={'class': 'form-control'}), required=False)
