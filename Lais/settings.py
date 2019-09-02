@@ -43,7 +43,14 @@ INSTALLED_APPS = [
 
     'bootstrap3',
     'bootstrap_pagination',
+    'social_django',
 ]
+
+
+AUTHENTICATION_BACKENDS=(
+    'social_core.backends.github.GithubOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -53,6 +60,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'Lais.urls'
@@ -69,6 +78,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.request',
+
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -127,6 +139,9 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
+
+SOCIAL_AUTH_GITHUB_KEY = '1a9dedbae256bc2a5583'
+SOCIAL_AUTH_GITHUB_SECRET = '56c63a79e435502f105828d3d44baa95f38391ec'
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [

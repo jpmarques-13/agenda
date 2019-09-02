@@ -1,0 +1,7 @@
+Django==1.11.23
+django-bootstrap-pagination==1.7.1
+django-bootstrap3==11.1.0
+django-queryset-csv==1.0.2
+psycopg2==2.7.6.1
+unicodecsv==0.14.1
+

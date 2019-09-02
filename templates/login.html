@@ -48,6 +48,7 @@
                       {%csrf_token%}
                       {%bootstrap_form form%}
                       {% bootstrap_button "Login" button_type="submit" button_class="btn-primary" %}
+                      <a class='button' href="{%url 'social:begin' 'github'%}">Login with Github</a>
                     </form>
                 </div>
             </tr>
