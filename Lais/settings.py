@@ -143,6 +143,10 @@ USE_TZ = True
 SOCIAL_AUTH_GITHUB_KEY = '1a9dedbae256bc2a5583'
 SOCIAL_AUTH_GITHUB_SECRET = '56c63a79e435502f105828d3d44baa95f38391ec'
 
+
+LOGIN_REDIRECT_URL = "http://localhost:8000/polls/VerContatos"
+
+
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
