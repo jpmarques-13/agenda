@@ -13,6 +13,7 @@ from datetime import datetime
 from django.db.models import Count, Max, Min
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from .decorators import *
 #import
 
 
@@ -21,6 +22,7 @@ def index(request):
 
 
 @login_required(login_url='Usuario/login')
+@basico_Nivel
 def CriarContato (request):
     if request.method == 'POST':
         form = ContatoForm(request.POST)
@@ -54,6 +56,7 @@ def csv_view(request,id):
                                                     'Email': 'email','Celular': 'celular'})
 
 @login_required(login_url='Usuario/login')
+@basico_Nivel
 def VerContatos (request):
     ITEMS_PER_PAGE = 4
     page = request.GET.get('page')
@@ -75,7 +78,7 @@ def VerContatos (request):
         contatos= paginator.page(1)
     return render (request,'VerContatos.html',locals())
 
-
+@intermediario_Nivel
 def EditarContatos (request,id):
     contatos = Contato.objects.get(pk=id)
     form=ContatoForm(request.POST or None,instance=contatos)
@@ -87,7 +90,7 @@ def EditarContatos (request,id):
             return redirect('polls:VerContatos')
     return render (request,'editarContato.html',locals())
 
-
+@avancado_Nivel
 def deletarContatos (request,id):
     contatos = Contato.objects.get(pk=id)
     if request.user.contato_set.all().count()>1:

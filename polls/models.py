@@ -8,6 +8,26 @@ from . validators import *
 from django.contrib.auth.models import User
 # Create your models here.
 
+
+class Perfil(models.Model):
+    nome = models.CharField(max_length=25, unique=True)
+
+    @property
+    def nome_formatado(self):
+        return self.nome.lower().replace("_", "").replace(" ", "")
+
+    def __unicode__(self):
+        return u'%s' % self.nome
+
+
+
+class Nivel(models.Model):
+    Nome = models.OneToOneField(User, related_name='Nivel')
+
+    perfil = models.ManyToManyField(Perfil)
+
+
+
 class Contato(models.Model):
     Nome = models.CharField(max_length=250)
     Email = models.EmailField(null=True,validators=[validate_school_email])
@@ -32,3 +52,7 @@ class Contato(models.Model):
             return delta
         else:
             return None
+
+
+
+

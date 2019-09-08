@@ -1,7 +1,11 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
 
 from django.contrib import admin
 
-# Register your models here.
 
+from polls.models import *
+
+
+admin.site.register(Perfil)
+admin.site.register(Contato)
+
+admin.site.register(Nivel)
